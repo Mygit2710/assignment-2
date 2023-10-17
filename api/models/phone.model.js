@@ -22,5 +22,7 @@ module.exports = (sequelize, Sequelize) => {
         },
     });
 
+
+
     return Phone;
 };
