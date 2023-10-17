@@ -1,0 +1,74 @@
+.list-container {
+    padding: 20px;
+    border: 1px solid black;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    width: 600px;
+    /* Set a fixed width */
+    margin: 0 auto;
+    /* Center the box horizontally */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    /* Add a subtle box shadow */
+    background-color: #f0f0f0;
+    /* White background */
+}
+
+
+.input-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
+
+.input-container input {
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.create-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 16px;
+    cursor: pointer;
+}
+
+.create-button:hover {
+    background-color: #0056b3;
+}
+
+.contact-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.task-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    background-color: #f9f9f9;
+}
+
+.delete-button {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 16px;
+    cursor: pointer;
+    margin-left: 350px;
+}
+
+.delete-button:hover {
+    background-color: #d32f2f;
+}
