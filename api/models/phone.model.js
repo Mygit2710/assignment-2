@@ -5,8 +5,22 @@ module.exports = (sequelize, Sequelize) => {
             autoIncrement: true,
             primaryKey: true,
         },
-        // DEFINE YOUR MODEL HERE
+        contactType: {
+            type: Sequelize.STRING,
+        },
+        phoneNumber: {
+            type: Sequelize.STRING,
+        },
+        contactId: {
+            type: Sequelize.INTEGER,
+            references: {
+                model: 'contacts',
+                key: 'id',
+            },
+            onUpdate: 'CASCADE',
+            onDelete: 'CASCADE',
+        },
     });
-  
+
     return Phone;
 };
