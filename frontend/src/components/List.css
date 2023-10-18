@@ -1,74 +1,107 @@
+/* body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-image: url('autumn.gif');
+} */
+
 .list-container {
-    padding: 20px;
-    border: 1px solid black;
-    border-radius: 5px;
-    margin-bottom: 20px;
-    width: 600px;
-    /* Set a fixed width */
+    width: 34%;
     margin: 0 auto;
-    /* Center the box horizontally */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    /* Add a subtle box shadow */
-    background-color: #f0f0f0;
-    /* White background */
+    padding: 20px;
+    background-color: #eef5f1;
+    border: 2px solid #0ac59d;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px rgb(10, 197, 157);
+    text-align: center;
+}
+
+
+h1 {
+    font-size: 24px;
+    margin: 0;
+    padding: 10px;
+    color: #333;
+}
+
+h2 {
+    font-size: 20px;
+    margin: 20px 0;
+    color: #555;
 }
 
 
 .input-container {
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    margin-bottom: 20px;
-    margin-top: 10px;
+    flex-direction: row;
+    margin-top: 20px;
+    width: fit-content;
+    margin-left: 5px;
 }
 
-.input-container input {
-    padding: 8px;
-    margin-bottom: 10px;
+
+input[type="text"] {
+    padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    font-size: 16px;
+    margin-bottom: 10px;
+    width: 100%;
 }
+
 
 .create-button {
     background-color: #007bff;
-    color: white;
+    color: #fff;
     border: none;
     border-radius: 5px;
-    padding: 8px 16px;
+    padding: 8px 8px;
     cursor: pointer;
-}
-
-.create-button:hover {
-    background-color: #0056b3;
+    font-size: 14px;
+    margin-bottom: 10px;
+    margin-left: 100px;
+    white-space: nowrap;
 }
 
 .contact-list {
     list-style: none;
     padding: 0;
-    margin: 0;
+    margin-top: -5px;
 }
+
 
 .task-item {
     display: flex;
-    align-items: center;
     justify-content: space-between;
+    align-items: center;
     padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+    font-weight: bold;
+    font-size: 20px;
+    margin: 0px;
     margin-bottom: 10px;
-    background-color: #f9f9f9;
 }
+
 
 .delete-button {
-    background-color: #f44336;
-    color: white;
+    background-color: #ff6b6b;
+    color: #fff;
     border: none;
     border-radius: 5px;
-    padding: 8px 16px;
+    padding: 10px;
     cursor: pointer;
-    margin-left: 350px;
+    font-size: 14px;
+    margin-right: -px;
+    margin-top: -5px;
 }
 
-.delete-button:hover {
-    background-color: #d32f2f;
+
+.task-item span {
+    flex-grow: 1;
+    text-align: left;
+    padding: 10px;
+    font-size: 18px;
+    color: #333;
 }

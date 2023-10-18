@@ -1,34 +1,10 @@
-.contact-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
+tr {
+    background-color: #fff;
+    border-bottom: 0px solid #ccc;
+    font-size: 14px;
 }
 
-.contact-table th,
-.contact-table td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
-    width: 50px;
-}
-
-.contact-table th {
-    background-color: #f0f0f0;
-}
-
-.contact-table tr:nth-child(even) {
-    background-color: #f9f9f9;
-}
-
-.delete-button {
-    background-color: #f44336;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 8px 16px;
-    cursor: pointer;
-}
-
-.delete-button:hover {
-    background-color: #d32f2f;
+td {
+    padding: 30px;
+    font-size: 14px;
 }

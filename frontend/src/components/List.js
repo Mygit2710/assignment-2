@@ -10,13 +10,6 @@ function Task(props) {
             setIsEditing(!isEditing);
         }
 
-        const handleSaveContactDetails = (contactType, phoneNumber) => {
-            console.log("Contact type: ", contactType);
-            console.log("Phone number: ", phoneNumber);
-
-        }
-        
-
         function onClick() {
             fetch(`http://localhost/api/contacts/${props.id}`, {
                 method: 'DELETE'
@@ -27,16 +20,14 @@ function Task(props) {
                 .catch((error) => {
                     console.error('Error:', error);
                 });
-
         }
 
         return (
             <li>
-                <span className="task-item" onClick={handleEditing}> {props.name}
-                    <button className="delete-button" type="button" onClick={onClick}> Delete </button> </span>
-
-                {isEditing &&
-                    <Phone id={props.id} onSave={handleSaveContactDetails} />}
+                <div className="task-item" onClick={handleEditing}> {props.name}
+                    <button className="delete-button" type="button" onClick={onClick}> Delete </button> </div>
+                {isEditing && <Phone id={props.id}
+                />}
             </li>
         );
     }
@@ -44,7 +35,6 @@ function Task(props) {
 
 function List(props) {
     const [newTask, setNewTask] = useState("");
-
 
     function onChange(event) {
         setNewTask(event.target.value);
@@ -68,27 +58,28 @@ function List(props) {
         setNewTask("");
     }
 
-
     return (
         <div className="list-container">
-            <h1>Contactor</h1>
-            <h2>Contacts</h2>
-            <div className="input-container">
-                <input type="text" value={newTask} placeholder="Enter contact name" onChange={onChange}></input>
-                <br /><br />
-                <button className="create-button" type="button" onClick={onClick}> Create contact</button>
+            <div className="form">
+                <h1>Contactor</h1>
+                <h2>Contacts</h2>
+                <div className="input-container">
+                    <input type="text" value={newTask} placeholder="Enter contact name" onChange={onChange}></input>
+                    <button className="create-button" type="button" onClick={onClick}> Create contact</button>
+                </div>
+
+
+                <div className="contact-list">
+                    {props.tasks.map(task =>
+                        <Task
+                            key={task.id}
+                            setTasks={props.setTasks}
+                            id={task.id}
+                            name={task.name} />)}
+                </div>
             </div>
-
-            <ul className="contact-list">
-                {props.tasks.map(task =>
-                    <Task
-                        key={task.id}
-                        setTasks={props.setTasks}
-                        id={task.id}
-                        name={task.name} />)}
-
-            </ul>
         </div>
+
     );
 }
 export default List;

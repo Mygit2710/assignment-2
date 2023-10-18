@@ -1,122 +1,133 @@
 const db = require("../models");
 const Phones = db.phones;
-//const Contacts = db.contacts;
+const Contacts = db.contacts;
 const Op = db.Sequelize.Op;
 
-// Create phone
+// Create a new phone for a contact
 exports.create = (req, res) => {
-    const phone = {
-        type: req.body.contactType,
-        number: req.body.phoneNumber,
-        contactId: req.body.contactId
+    const { contactId, contactType, phoneNumber } = req.body;
+
+    // Validate input
+    if (!contactId || !contactType || !phoneNumber) {
+        return res.status(400).send({ message: "Contact ID, contactType, and phoneNumber are required" });
     }
-    Phones.create(phone)
-        .then(data => {
-            res.send(data);
+
+    Phones.create({
+        contactId,
+        contactType,
+        phoneNumber,
+    })
+        .then((phone) => {
+            res.status(201).send(phone);
         })
-        .catch(err => {
+        .catch((err) => {
             res.status(500).send({
-                message: err.message || "Some error occurred"
+                message: err.message || "Some error occurred while creating the phone.",
             });
         });
 };
-
-
-
-
-// Get all phones
-// exports.findAll = (req, res) => {
-//     Phones.findAll()
-//         .then((data) => {
-//             res.send(data);
-//         })
-//         .catch(err => {
-//             res.status(500).send({
-//                 message: err.message || "Some error occurred"
-//             });
-//         });
-
-// };
-
+exports.findAllPhones = (req, res) => {
+    Phones.findAll()
+        .then((phones) => {
+            res.send(phones);
+        })
+        .catch((err) => {
+            res.status(500).send({
+                message: err.message || "Some error occurred while retrieving phones.",
+            });
+        });
+};
+// Get all phones for a contact
 exports.findAll = (req, res) => {
     const contactId = req.params.contactId;
+
     Phones.findAll({
-        where: { contactId: contactId }
+        where: { contactId },
     })
-        .then((data) => {
-            res.send(data);
+        .then((phones) => {
+            res.send(phones);
         })
-        .catch(err => {
+        .catch((err) => {
             res.status(500).send({
-                message: err.message || "Some error occurred"
+                message: err.message || "Some error occurred while retrieving phones.",
             });
         });
 };
 
-// Get one phone by id
+// Get a single phone by ID
 exports.findOne = (req, res) => {
-
-};
-
-// Update one phone by id
-exports.update = (req, res) => {
-
-};
-
-// Delete one phone by id
-// exports.delete = (req, res) => {
-//     const phoneId = req.params.phoneId;
-//     Phones.destroy({
-//         where: { id: phoneId }
-//     })
-//         .then(num => {
-//             if (num === 1) {
-//                 // Phone record deleted successfully
-//                 // Now delete the associated contact type
-//                 Contacts.destroy({
-//                     where: { phoneId: phoneId }
-//                 })
-//                     .then(() => {
-//                         res.send({ message: "Phone and contact type were deleted successfully." });
-//                     })
-//                     .catch(err => {
-//                         res.status(500).send({
-//                             message: "Error deleting associated contact type."
-//                         });
-//                     });
-//             } else {
-//                 res.send({ message: "Phone record not found." });
-//             }
-//         })
-//         .catch(err => {
-//             res.status(500).send({
-//                 message: "Error deleting phone record."
-//             });
-//         });
-
-// };
-
-exports.delete = (req, res) => {
-    const phoneId = req.params.phoneId;
     const contactId = req.params.contactId;
-    Phones.destroy({
-        where: { id: phoneId, contactId: contactId }
+    const phoneId = req.params.phoneId;
+
+    Phones.findOne({
+        where: { id: phoneId, contactId },
     })
-        .then(num => {
-            if (num == 1) {
-                res.send({
-                    message: "Task was deleted successfully."
-                });
+        .then((phone) => {
+            if (!phone) {
+                return res.status(404).send({ message: "Phone not found" });
             }
-            else {
-                res.send({
-                    message: "Cannot delete Task"
+            res.send(phone);
+        })
+        .catch((err) => {
+            res.status(500).send({
+                message: err.message || "Some error occurred while retrieving the phone.",
+            });
+        });
+};
+
+// Update a phone by ID
+exports.update = (req, res) => {
+    const contactId = req.params.contactId;
+    const phoneId = req.params.phoneId;
+    const { contactType, phoneNumber } = req.body;
+
+    Phones.findOne({
+        where: { id: phoneId, contactId },
+    })
+        .then((phone) => {
+            if (!phone) {
+                return res.status(404).send({ message: "Phone not found" });
+            }
+
+            phone.contactType = contactType;
+            phone.phoneNumber = phoneNumber;
+
+            phone
+                .save()
+                .then(() => {
+                    res.send(phone);
+                })
+                .catch((err) => {
+                    res.status(500).send({
+                        message: err.message || "Some error occurred while updating the phone.",
+                    });
                 });
+        })
+        .catch((err) => {
+            res.status(500).send({
+                message: err.message || "Some error occurred while retrieving the phone.",
+            });
+        });
+};
+
+// Delete a phone by ID
+exports.delete = (req, res) => {
+    const contactId = req.params.contactId;
+    const phoneId = req.params.phoneId;
+
+    Phones.destroy({
+        where: { id: phoneId, contactId },
+    })
+        .then((num) => {
+            if (num === 1) {
+                res.send({ message: "Phone was deleted successfully." });
+            } else {
+                res.status(404).send({ message: "Phone not found" });
             }
         })
-        .catch(err => {
+        .catch((err) => {
             res.status(500).send({
-                message: "Could not delete task with id=" + phoneId
+                message: err.message || "Some error occurred while deleting the phone.",
             });
         });
 };
